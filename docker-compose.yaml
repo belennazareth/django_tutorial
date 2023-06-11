@@ -2,7 +2,7 @@ version: '3.3'
 services:
   django-jenkins:
     container_name: django-jenkins
-    image: belennazareth/django:v1
+    image: belennazareth/django_tutorial:${DJANGO_VERSION}
     restart: always
     environment:
       ALLOWED_HOSTS: "*"
