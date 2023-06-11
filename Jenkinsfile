@@ -50,8 +50,10 @@ pipeline {
         stage('Deploy') {
             agent any
             steps {
-                sshagent(['SSH']) {
-                    sh 'ssh -o StrictHostKeyChecking=no poke@buizel.ottershell.es ls'
+                script {
+                    sshagent(credentials: ['SSH_VPS']) {
+                        sh 'ssh -o StrictHostKeyChecking=no poke@buizel.ottershell.es ls'
+                    }
                 }
             }
         }
