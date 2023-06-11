@@ -1,34 +1,28 @@
 pipeline {
     agent none
     stages {
-        stage('Clone') {
-            agent {
+        stage ('Testing django') { 
+            agent { 
                 docker { image 'python:3'
                 args '-u root:root'
                 }
             }
-            steps {
-                git branch:'master',url:'https://github.com/belennazareth/django_tutorial.git'
-            }
-        }
-        stage('Install') {
-            agent {
-                docker { image 'python:3'
-                args '-u root:root'
+            stages {
+                stage('Clone') {
+                    steps {
+                        git branch:'master',url:'https://github.com/belennazareth/django_tutorial.git'
+                    }
                 }
-            }
-            steps {
-                sh 'pip install -r requirements.txt'
-            }
-        }
-        stage('Test') {
-            agent {
-                docker { image 'python:3'
-                args '-u root:root'
+                stage('Install') {
+                    steps {
+                        sh 'pip install -r requirements.txt'
+                    }
                 }
-            }
-            steps {
-                sh 'python3 manage.py test'
+                stage('Test') {
+                    steps {
+                        sh 'python3 manage.py test'
+                    }
+                } 
             }
         }
         stage('Build') {
