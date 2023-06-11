@@ -31,7 +31,8 @@ pipeline {
                 stage('Build') {
                     steps {
                         script {
-                            def dockerImage = docker.build("belennazareth/django_tutorial:${env.BUILD_ID}")
+                            def dockerImage 
+                            dockerImage = docker.build("belennazareth/django_tutorial:${env.BUILD_ID}")
                         }
                     }
                 }
