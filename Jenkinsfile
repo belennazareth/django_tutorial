@@ -41,7 +41,9 @@ pipeline {
                     steps {
                         script {
                             withDockerRegistry([ credentialsId: "DOCKER_HUB", url: "" ]) {
-                                env.dockerImage.push()
+                                def dockerImage
+				dockerImage = env.dockerImage
+				dockerImage.push()
                             }
                         }
                     }
