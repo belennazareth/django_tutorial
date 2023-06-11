@@ -28,22 +28,12 @@ pipeline {
         stage('Upload img') {
             agent any
             stages {
-                stage('Build') {
+                stage('Build and push') {
                     steps {
                         script {
-                            def dockerImage 
-                            dockerImage = docker.image("belennazareth/django_tutorial:${env.BUILD_ID}")
-                            env.dockerImage = dockerImage
-                        }
-                    }
-                }
-                stage('Push image') {
-                    steps {
-                        script {
-                            withDockerRegistry([ credentialsId: "DOCKER_HUB", url: "" ]) {
-				dockerImage = env.dockerImage
-				dockerImage.push()
-                            }
+                            withDockerRegistry([credentialsId: 'DOCKER_HUB', url: '']) {
+                            def dockerImage = docker.build("belennazareth/django_tutorial:${env.BUILD_ID}")
+                            dockerImage.push()
                         }
                     }
                 }
