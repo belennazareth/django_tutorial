@@ -41,8 +41,7 @@ pipeline {
                 stage('Remove image') {
                     steps {
                         script {
-                            dockerImage = docker.image("belennazareth/django_tutorial:${env.BUILD_ID}")
-                            dockerImage.remove()
+                            sh "docker rmi belennazareth/django_tutorial:${env.BUILD_ID}"
                         }
                     }
                 }
