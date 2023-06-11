@@ -56,7 +56,7 @@ pipeline {
                         sh "ssh -o StrictHostKeyChecking=no poke@buizel.ottershell.es docker rmi belennazareth/django_tutorial:${tagRemove}"
                         sh "ssh -o StrictHostKeyChecking=no poke@buizel.ottershell.es docker pull belennazareth/django_tutorial:${env.BUILD_ID}"
                         sh "ssh -o StrictHostKeyChecking=no poke@buizel.ottershell.es wget https://raw.githubusercontent.com/belennazareth/django_tutorial/master/docker-compose.yaml -O docker-compose.yaml"
-                        sh "ssh -o StrictHostKeyChecking=no poke@buizel.ottershell.es export DJANGO_VERSION=${env.BUILD_ID} && docker-compose up -d --force-recreate"
+                        sh "ssh -o StrictHostKeyChecking=no poke@buizel.ottershell.es DJANGO_VERSION=${env.BUILD_ID} docker-compose up -d --force-recreate"
                     }
                 }
             }
