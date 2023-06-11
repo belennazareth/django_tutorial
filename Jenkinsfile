@@ -48,4 +48,11 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            mail to: 'nazare@nazareth.jenkins.org',
+            subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+            body: "${env.BUILD_URL} has result ${currentBuild.result}"
+        }
+    }
 }
