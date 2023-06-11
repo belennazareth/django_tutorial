@@ -32,7 +32,7 @@ pipeline {
                     steps {
                         script {
                             def dockerImage 
-                            dockerImage = docker.build("belennazareth/django_tutorial:${env.BUILD_ID}")
+                            dockerImage = docker.image("belennazareth/django_tutorial:${env.BUILD_ID}")
                             env.dockerImage = dockerImage
                         }
                     }
