@@ -1,0 +1,32 @@
+version: '3.3'
+services:
+  django-jenkins:
+    container_name: django-jenkins
+    image: belennazareth/django:v1
+    restart: always
+    environment:
+      ALLOWED_HOSTS: "*"
+      HOST: bd_mariadb_django_jenkins
+      USUARIO: django
+      CONTRA: django
+      BASE_DATOS: django
+      DJANGO_SUPERUSER_PASSWORD: admin
+      DJANGO_SUPERUSER_USERNAME: admin
+      DJANGO_SUPERUSER_EMAIL: admin@admin.org
+    ports:
+      - 8085:8005
+    depends_on:
+      - db_django_jenkins
+  db_django_jenkins:
+    container_name: bd_mariadb_django_jenkins
+    image: mariadb:10.5
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: django
+      MARIADB_USER: django
+      MARIADB_PASSWORD: django
+    volumes:
+      - mariadb_data_django_jenkins:/var/lib/mysql
+volumes:
+    mariadb_data_django_jenkins:
