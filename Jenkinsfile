@@ -47,6 +47,14 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            agent any
+            steps {
+                sshagent(['SSH']) {
+                    sh 'ssh -o StrictHostKeyChecking=no poke@buizel.ottershell.es ls'
+                }
+            }
+        }
     }
     post {
         always {
