@@ -33,6 +33,7 @@ pipeline {
                         script {
                             def dockerImage 
                             dockerImage = docker.build("belennazareth/django_tutorial:${env.BUILD_ID}")
+                            env.dockerImage = dockerImage
                         }
                     }
                 }
@@ -40,7 +41,7 @@ pipeline {
                     steps {
                         script {
                             withDockerRegistry([ credentialsId: "DOCKER_HUB", url: "" ]) {
-                                dockerImage.push()
+                                env.dockerImage.push()
                             }
                         }
                     }
